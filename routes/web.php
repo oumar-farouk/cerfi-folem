@@ -31,12 +31,14 @@ Route::get('/editions/{edition}/inscription', RegisterForm::class)->name('inscri
 
 Route::middleware('throttle:10,1')->group(function () {
     Route::post('/mon-inscription', [ReceiptController::class, 'rechercher'])->name('inscription.rechercher');
-    Route::get('/paiement/{code}', [PaymentController::class, 'initier'])->name('paiement.initier');
+    Route::get('/payer/{code}', [PaymentController::class, 'initier'])->name('paiement.initier');
     Route::get('/recu/{code}', [ReceiptController::class, 'telecharger'])->name('recu.telecharger');
 });
 
 Route::get('/paiement/succes', [PaymentController::class, 'succes'])->name('paiement.succes');
 Route::get('/paiement/annule', [PaymentController::class, 'annule'])->name('paiement.annule');
+// Vérification du récépissé via scan du QR code (contrôle d'accès jour J)
+Route::get('/verification/{code}/{hash}', [\App\Http\Controllers\VerificationController::class, 'show'])->name('verification.show');
 
 /*
 |--------------------------------------------------------------------------

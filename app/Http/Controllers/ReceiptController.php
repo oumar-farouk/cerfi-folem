@@ -31,10 +31,10 @@ class ReceiptController extends Controller
 
         $inscription = Inscription::where('code_inscription', $code)->first();
 
-        if (! $inscription) {
-            return back()
-                ->withInput()
-                ->withErrors(['code' => 'Ce code ne correspond à aucun dossier.']);
+       if (! $inscription) {
+        return redirect(url()->previous() . '#retrouver-dossier')
+            ->withInput()
+            ->withErrors(['code' => 'Ce code ne correspond à aucun dossier.']);
         }
 
         if (! $inscription->estPayee()) {

@@ -34,12 +34,12 @@
     </table>
 
     <div class="qr">
-        {!! QrCode::size(120)->generate($hash) !!}
-        <p style="font-size:10px;color:#999;">Code de vérification à l'entrée</p>
+        <img src="data:image/svg+xml;base64,{{ base64_encode(QrCode::format('svg')->size(120)->generate(route('verification.show', ['code' => $inscription->code_inscription, 'hash' => $hash]))) }}"
+            width="120" height="120" alt="QR code de vérification">
+        <p style="font-size:10px;color:#999;">Scanner pour vérifier ce récépissé à l'entrée</p>
     </div>
-
     <div class="footer">
-        Document généré automatiquement — {{ config('app.name') }}<br>
+        Document généré automatiquement - {{ config('app.name') }}<br>
         Toute falsification est passible de poursuites.
     </div>
 </body>

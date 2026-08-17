@@ -86,7 +86,7 @@ class RegisterForm extends Component
             'prenom' => ['required', 'string', 'max:100'],
             'email' => ['required', 'email:rfc', 'max:150'],
             // Format attendu par LigdiCash : 226 suivi de 8 chiffres.
-            'telephone' => ['required', 'regex:/^226[0-9]{8}$/'],
+           'telephone' => ['required', 'regex:/^(?:226)?[0-9]{8}$/'],
             'structure' => ['nullable', 'string', 'max:150'],
             'fonction' => ['nullable', 'string', 'max:150'],
             'secteur_activite' => ['required', 'in:'.$secteurs],

@@ -162,9 +162,9 @@
                             </x-site.champ>
 
                             <x-site.champ label="Téléphone" nom="telephone" requis
-                                          aide="Format 226XXXXXXXX, c'est le numéro qui recevra la demande de paiement.">
+                                          aide="Format XXXXXXXX, c'est le numéro qui recevra la demande de paiement.">
                                 <input type="tel" wire:model.blur="telephone" id="champ-telephone" inputmode="numeric"
-                                       placeholder="22670000000" maxlength="11" autocomplete="tel"
+                                       placeholder="70000000" maxlength="11" autocomplete="tel"
                                        @class(['champ-form', 'champ-erreur' => $errors->has('telephone')])>
                             </x-site.champ>
 

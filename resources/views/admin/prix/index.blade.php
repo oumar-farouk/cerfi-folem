@@ -51,7 +51,7 @@
                                             <label class="sr-only" for="tarif-{{ $region->id }}-{{ $profil->id }}">
                                                 Tarif {{ $region->nom }} / {{ $profil->nom }}
                                             </label>
-                                            <input type="number" min="0" step="500" inputmode="numeric"
+                                            <input type="number" min="0" step="100" inputmode="numeric"
                                                    id="tarif-{{ $region->id }}-{{ $profil->id }}"
                                                    name="montants[{{ $region->id }}][{{ $profil->id }}]"
                                                    value="{{ old("montants.{$region->id}.{$profil->id}", data_get($grille, "{$region->id}.{$profil->id}")) }}"

@@ -6,13 +6,6 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-/**
- * En-têtes de sécurité appliqués à toutes les réponses HTML.
- *
- * La politique de contenu reste volontairement permissive sur les images et
- * les cadres (galerie, carte Google, page de paiement LigdiCash) mais bloque
- * les objets et restreint les formulaires aux destinations attendues.
- */
 class SecurityHeaders
 {
     public function handle(Request $request, Closure $next): Response
@@ -32,9 +25,9 @@ class SecurityHeaders
             $response->headers->set('Strict-Transport-Security', 'max-age=31536000; includeSubDomains');
         }
 
-        // Content-Security-Policy : à durcir encore une fois le domaine de
-        // production connu. 'unsafe-inline' reste nécessaire pour les
-        // expressions Alpine et les scripts de thème inlinés.
+        // Récupération de l'URL de l'application pour la CSP
+        $appUrl = config('app.url');
+
         $response->headers->set('Content-Security-Policy', implode('; ', [
             "default-src 'self'",
             "base-uri 'self'",
@@ -44,8 +37,9 @@ class SecurityHeaders
             "style-src 'self' 'unsafe-inline'",
             "script-src 'self' 'unsafe-inline' 'unsafe-eval'",
             "connect-src 'self'",
-            'frame-src https://www.google.com https://maps.google.com',
-            "form-action 'self'",
+            'frame-src https://www.google.com https://maps.google.com https://*.ligdicash.com',
+            // Autorise 'self', le domaine configuré, ngrok et la plateforme de paiement
+            "form-action 'self' {$appUrl} https://*.ngrok-free.app",
             "frame-ancestors 'self'",
         ]));
 
