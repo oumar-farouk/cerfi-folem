@@ -1,0 +1,331 @@
+/*
+|--------------------------------------------------------------------------
+| FOLEM — feuille de style principale (Tailwind CSS 4)
+|--------------------------------------------------------------------------
+| La charte part des deux logos officiels :
+|   vert FOLEM/CERFI  #00A650
+|   orange FOLEM      #EF6325
+| Les échelles ci-dessous sont construites autour de ces deux valeurs, avec
+| une base neutre chaude (sable / crème) pour le site public et une base
+| neutre froide type TailAdmin pour le back-office.
+*/
+
+/*
+| Polices auto-hébergées : aucun appel à un CDN externe au chargement, ce qui
+| compte sur une connexion lente. On n'importe que les sous-ensembles latins :
+| les jeux arabes d'Amiri pèsent à eux seuls près de 700 Ko et ne servent pas ici.
+*/
+@import '@fontsource-variable/outfit';
+@import '@fontsource/amiri/latin-400.css';
+@import '@fontsource/amiri/latin-700.css';
+@import '@fontsource/amiri/latin-400-italic.css';
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+    --font-sans:
+        'Outfit Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+    --font-display: 'Amiri', 'Outfit Variable', Georgia, serif;
+
+    --breakpoint-2xsm: 375px;
+    --breakpoint-xsm: 425px;
+    --breakpoint-3xl: 2000px;
+
+    /* Titres façon TailAdmin */
+    --text-title-2xl: 72px;
+    --text-title-2xl--line-height: 90px;
+    --text-title-xl: 60px;
+    --text-title-xl--line-height: 72px;
+    --text-title-lg: 48px;
+    --text-title-lg--line-height: 60px;
+    --text-title-md: 36px;
+    --text-title-md--line-height: 44px;
+    --text-title-sm: 30px;
+    --text-title-sm--line-height: 38px;
+    --text-theme-xl: 20px;
+    --text-theme-xl--line-height: 30px;
+    --text-theme-sm: 14px;
+    --text-theme-sm--line-height: 20px;
+    --text-theme-xs: 12px;
+    --text-theme-xs--line-height: 18px;
+
+    /* --- Vert FOLEM : couleur primaire --- */
+    --color-brand-25: #f2fdf7;
+    --color-brand-50: #e6f8ef;
+    --color-brand-100: #c4efdb;
+    --color-brand-200: #8fe0bb;
+    --color-brand-300: #52cd98;
+    --color-brand-400: #1fb978;
+    --color-brand-500: #00a650;
+    --color-brand-600: #008a44;
+    --color-brand-700: #016e38;
+    --color-brand-800: #05572e;
+    --color-brand-900: #073f23;
+    --color-brand-950: #032818;
+
+    /* --- Orange FOLEM : couleur d'accent --- */
+    --color-accent-25: #fffaf7;
+    --color-accent-50: #fef2ec;
+    --color-accent-100: #fddfcf;
+    --color-accent-200: #fabf9f;
+    --color-accent-300: #f79a6a;
+    --color-accent-400: #f37c43;
+    --color-accent-500: #ef6325;
+    --color-accent-600: #d64e14;
+    --color-accent-700: #b23c10;
+    --color-accent-800: #8d3213;
+    --color-accent-900: #722c15;
+    --color-accent-950: #3f1608;
+
+    /* --- Neutres chauds : site public --- */
+    --color-sand-25: #fdfbf7;
+    --color-sand-50: #fbf7f0;
+    --color-sand-100: #f5eee1;
+    --color-sand-200: #e9dcc6;
+    --color-sand-300: #d8c6a6;
+    --color-sand-400: #b7a685;
+    --color-sand-500: #8d8069;
+    --color-sand-600: #6b6154;
+    --color-sand-700: #4d463d;
+    --color-sand-800: #332e28;
+    --color-sand-900: #1e1b17;
+
+    /* --- Neutres froids : back-office --- */
+    --color-gray-25: #fcfcfd;
+    --color-gray-50: #f9fafb;
+    --color-gray-100: #f2f4f7;
+    --color-gray-200: #e4e7ec;
+    --color-gray-300: #d0d5dd;
+    --color-gray-400: #98a2b3;
+    --color-gray-500: #667085;
+    --color-gray-600: #475467;
+    --color-gray-700: #344054;
+    --color-gray-800: #1d2939;
+    --color-gray-900: #101828;
+    --color-gray-950: #0c111d;
+    --color-gray-dark: #1a2231;
+
+    --color-success-25: #f6fef9;
+    --color-success-50: #ecfdf3;
+    --color-success-100: #d1fadf;
+    --color-success-200: #a6f4c5;
+    --color-success-300: #6ce9a6;
+    --color-success-400: #32d583;
+    --color-success-500: #12b76a;
+    --color-success-600: #039855;
+    --color-success-700: #027a48;
+    --color-success-800: #05603a;
+    --color-success-900: #054f31;
+
+    --color-error-25: #fffbfa;
+    --color-error-50: #fef3f2;
+    --color-error-100: #fee4e2;
+    --color-error-200: #fecdca;
+    --color-error-300: #fda29b;
+    --color-error-400: #f97066;
+    --color-error-500: #f04438;
+    --color-error-600: #d92d20;
+    --color-error-700: #b42318;
+    --color-error-800: #912018;
+    --color-error-900: #7a271a;
+
+    --color-warning-25: #fffcf5;
+    --color-warning-50: #fffaeb;
+    --color-warning-100: #fef0c7;
+    --color-warning-200: #fedf89;
+    --color-warning-300: #fec84b;
+    --color-warning-400: #fdb022;
+    --color-warning-500: #f79009;
+    --color-warning-600: #dc6803;
+    --color-warning-700: #b54708;
+    --color-warning-800: #93370d;
+    --color-warning-900: #7a2e0e;
+
+    --shadow-theme-xs: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
+    --shadow-theme-sm: 0px 1px 3px 0px rgba(16, 24, 40, 0.1), 0px 1px 2px 0px rgba(16, 24, 40, 0.06);
+    --shadow-theme-md: 0px 4px 8px -2px rgba(16, 24, 40, 0.1), 0px 2px 4px -2px rgba(16, 24, 40, 0.06);
+    --shadow-theme-lg: 0px 12px 16px -4px rgba(16, 24, 40, 0.08), 0px 4px 6px -2px rgba(16, 24, 40, 0.03);
+    --shadow-theme-xl: 0px 20px 24px -4px rgba(16, 24, 40, 0.08), 0px 8px 8px -4px rgba(16, 24, 40, 0.03);
+    --shadow-card: 0 1px 2px rgba(16, 24, 40, 0.04), 0 12px 32px -12px rgba(7, 63, 35, 0.18);
+
+    --z-index-1: 1;
+    --z-index-9: 9;
+    --z-index-99: 99;
+    --z-index-999: 999;
+    --z-index-9999: 9999;
+    --z-index-99999: 99999;
+}
+
+/*
+| Tailwind 4 met la couleur de bordure par défaut à currentColor. On rétablit
+| un gris neutre pour éviter d'avoir à annoter chaque bordure du projet.
+*/
+@layer base {
+    *,
+    ::after,
+    ::before,
+    ::backdrop,
+    ::file-selector-button {
+        border-color: var(--color-gray-200, currentColor);
+    }
+
+    button:not(:disabled),
+    [role='button']:not(:disabled) {
+        cursor: pointer;
+    }
+
+    html {
+        scroll-behavior: smooth;
+        -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+        @apply relative z-1 font-normal antialiased;
+    }
+
+    /* Cible de focus visible partout, exigence d'accessibilité de base. */
+    :focus-visible {
+        @apply outline-2 outline-offset-2 outline-brand-500;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        html {
+            scroll-behavior: auto;
+        }
+
+        *,
+        *::before,
+        *::after {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+        }
+    }
+}
+
+/*
+|--------------------------------------------------------------------------
+| Utilitaires back-office (sidebar TailAdmin)
+|--------------------------------------------------------------------------
+*/
+@utility menu-item {
+    @apply relative flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-theme-sm font-medium transition-colors;
+}
+
+@utility menu-item-active {
+    @apply bg-brand-50 text-brand-700 dark:bg-brand-500/[0.14] dark:text-brand-300;
+}
+
+@utility menu-item-inactive {
+    @apply text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-white/5;
+}
+
+@utility menu-item-icon-active {
+    @apply text-brand-600 dark:text-brand-300;
+}
+
+@utility menu-item-icon-inactive {
+    @apply text-gray-400 group-hover:text-gray-600 dark:text-gray-400 dark:group-hover:text-gray-200;
+}
+
+@utility no-scrollbar {
+    &::-webkit-scrollbar {
+        display: none;
+    }
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+@utility custom-scrollbar {
+    &::-webkit-scrollbar {
+        @apply size-1.5;
+    }
+    &::-webkit-scrollbar-track {
+        @apply rounded-full;
+    }
+    &::-webkit-scrollbar-thumb {
+        @apply rounded-full bg-gray-200 dark:bg-gray-700;
+    }
+}
+
+/*
+|--------------------------------------------------------------------------
+| Motif moucharabieh — fond décoratif des zones sombres du site public
+|--------------------------------------------------------------------------
+*/
+@utility motif-mashrabiya {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='72' height='72' viewBox='0 0 72 72'%3E%3Cg fill='none' stroke='%2352cd98' stroke-width='1' opacity='0.20'%3E%3Cpath d='M36 2L70 36L36 70L2 36Z'/%3E%3Ccircle cx='36' cy='36' r='13'/%3E%3Cpath d='M36 2V70M2 36H70'/%3E%3C/g%3E%3C/svg%3E");
+    background-size: 72px 72px;
+}
+
+@utility motif-mashrabiya-clair {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='72' height='72' viewBox='0 0 72 72'%3E%3Cg fill='none' stroke='%2305572e' stroke-width='1' opacity='0.10'%3E%3Cpath d='M36 2L70 36L36 70L2 36Z'/%3E%3Ccircle cx='36' cy='36' r='13'/%3E%3Cpath d='M36 2V70M2 36H70'/%3E%3C/g%3E%3C/svg%3E");
+    background-size: 72px 72px;
+}
+
+/*
+|--------------------------------------------------------------------------
+| Champs de formulaire du site public
+|--------------------------------------------------------------------------
+| Le formulaire d'inscription réutilise ces deux classes partout, ce qui
+| évite de recopier une quinzaine d'utilitaires sur chaque input.
+*/
+@utility champ-form {
+    @apply w-full rounded-lg border border-sand-300 bg-white px-4 py-3 text-base text-sand-900 transition
+        placeholder:text-sand-400
+        focus:border-brand-500 focus:outline-none focus:ring-3 focus:ring-brand-500/20;
+}
+
+@utility champ-erreur {
+    @apply border-error-400 focus:border-error-400 focus:ring-error-500/20;
+}
+
+/* Masque un élément tant qu'Alpine n'a pas pris la main (évite un flash). */
+[x-cloak] {
+    display: none !important;
+}
+
+/* Filet décoratif sous les titres de section du site public. */
+@utility filet-titre {
+    &::after {
+        content: '';
+        @apply mt-4 block h-[3px] w-14 rounded-full bg-accent-500;
+    }
+}
+
+/*
+|--------------------------------------------------------------------------
+| ApexCharts : alignement sur la palette
+|--------------------------------------------------------------------------
+*/
+.apexcharts-text,
+.apexcharts-legend-text {
+    @apply !fill-gray-600 !text-gray-600 dark:!fill-gray-400 dark:!text-gray-400;
+}
+
+.apexcharts-gridline {
+    @apply !stroke-gray-100 dark:!stroke-gray-800;
+}
+
+.apexcharts-tooltip.apexcharts-theme-light {
+    @apply !rounded-lg !border-gray-200 !shadow-theme-sm dark:!border-gray-800 dark:!bg-gray-900;
+}
+
+.apexcharts-tooltip-title {
+    @apply !mb-0 !border-b-0 !bg-transparent !text-gray-800 dark:!text-white/90;
+}
+
+/* Retire la flèche des inputs date/heure, plus lisible dans les formulaires. */
+@layer utilities {
+    input[type='date']::-webkit-inner-spin-button,
+    input[type='time']::-webkit-inner-spin-button {
+        display: none;
+        -webkit-appearance: none;
+    }
+}
