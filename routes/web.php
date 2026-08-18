@@ -117,6 +117,7 @@ Route::middleware(['auth', 'role:super-admin|gestionnaire'])
         // Paramétrage global, partagé entre les éditions
         Route::resource('regions', Admin\RegionController::class)->only(['index', 'store', 'update', 'destroy']);
         Route::resource('profils', Admin\ProfilController::class)->only(['index', 'store', 'update', 'destroy']);
+        Route::resource('users', Admin\UserController::class)->only(['index', 'store', 'update', 'destroy']);
 
         Route::get('inscriptions', [Admin\InscriptionController::class, 'index'])->name('inscriptions.index');
         Route::get('inscriptions/export', [Admin\InscriptionController::class, 'export'])->name('inscriptions.export');

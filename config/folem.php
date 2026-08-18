@@ -23,7 +23,7 @@ return [
     'contact' => [
         'adresse' => '1200 Logements, Ouagadougou, Burkina Faso',
         'email' => env('FOLEM_CONTACT_EMAIL', 'contact@cerfi.bf'),
-        'telephones' => ['+226 57 47 67 59', '+226 65 60 29 03', '+226 60 71 96 34'],
+        'telephones' => ['+226 76 02 39 32', '+226 65 48 67 55', '+226 70 32 24 35'],
         'carte_url' => 'https://www.google.com/maps/d/embed?mid=1lFCRo-rt3nydWg2R9hqp_6QDKdk&ehbc=2E312F',
     ],
 
@@ -114,7 +114,7 @@ return [
         'Bouche à oreille',
         'CERFI / AEEMB',
         'Mosquée ou association',
-        'Presse, radio ou télévision',
+        'Presse / radio ou télévision',
         'Édition précédente du FOLEM',
         'Employeur ou partenaire',
         'Autre',

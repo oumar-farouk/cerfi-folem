@@ -86,6 +86,12 @@
                     'actif' => request()->routeIs('admin.profils.*'),
                     'icone' => 'badge',
                 ],
+                [
+                    'libelle' => 'Utilisateur',
+                    'url' => route('admin.users.index'),
+                    'actif' => request()->routeIs('admin.users.*'),
+                    'icone' => 'badge',
+                ],
             ],
         ],
     ];
