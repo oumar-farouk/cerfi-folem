@@ -20,7 +20,7 @@ return Application::configure(basePath: dirname(__DIR__))
 
         // En-têtes de sécurité sur toutes les réponses du site.
         $middleware->web(append: [
-            SecurityHeaders::class,
+            // SecurityHeaders::class,
         ]);
 
         /*
