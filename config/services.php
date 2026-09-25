@@ -35,4 +35,10 @@ return [
         ],
     ],
 
+    'ikoddi' => [
+        'api_key' => env('IKODDI_API_KEY'),
+        'group_id' => env('IKODDI_GROUP_ID'),
+        'sender' => env('IKODDI_SENDER', 'CERFI-FOLEM'),
+        'base_url' => env('IKODDI_BASE_URL', 'https://api.ikoddi.com/api/v1/groups/'),
+    ],
 ];

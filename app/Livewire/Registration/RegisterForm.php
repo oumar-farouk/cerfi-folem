@@ -296,6 +296,10 @@ class RegisterForm extends Component
             ]);
         });
 
+        if ($inscription->wasRecentlyCreated) {
+            $inscription->participant->notify(new \App\Notifications\InscriptionEnregistree($inscription));
+        }
+
         $this->codeGenere = $inscription->code_inscription;
         $this->montantRegle = $inscription->montant;
         $this->inscriptionTerminee = true;

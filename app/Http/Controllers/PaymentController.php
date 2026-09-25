@@ -57,6 +57,7 @@ class PaymentController extends Controller
                     ]);
                     $inscription->marquerCommePayee();
                     $this->recuService->genererPour($inscription);
+                    $inscription->participant->notify(new \App\Notifications\PaiementRecu($inscription->fresh()));
                 }
             }
         }

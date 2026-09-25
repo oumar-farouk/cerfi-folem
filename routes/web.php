@@ -9,6 +9,16 @@ use App\Livewire\Registration\RegisterForm;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
+// routes/web.php — à ajouter, idéalement retirée avant la mise en production
+// Route::get('/test-notification/{code}', function (string $code) {
+//     $inscription = \App\Models\Inscription::with('participant')
+//         ->where('code_inscription', $code)
+//         ->firstOrFail();
+//     $inscription->participant->notify(new \App\Notifications\InscriptionEnregistree($inscription));
+//     $inscription->participant->notify(new \App\Notifications\PaiementRecu($inscription->fresh()));
+//     return "Notification envoyée à {$inscription->participant->email} / {$inscription->participant->telephone} pour le code {$code}.";
+// }); // évite qu'un inconnu spamme des SMS via cette URL
+
 /*
 |--------------------------------------------------------------------------
 | Site public
