@@ -39,14 +39,16 @@
                         Réinitialiser
                     </x-admin.button>
                 @endif
-                <x-admin.button taille="petit" icone="telecharger"
-                                :href="route('admin.inscriptions.export', array_filter([
-                                    'edition_id' => $edition?->id,
-                                    'statut' => request('statut'),
-                                    'q' => request('q'),
-                                ]))">
-                    Exporter en Excel
-                </x-admin.button>
+                @hasanyrole('super-admin|gestionnaire|comptable')
+                    <x-admin.button taille="petit" icone="telecharger"
+                                    :href="route('admin.inscriptions.export', array_filter([
+                                        'edition_id' => $edition?->id,
+                                        'statut' => request('statut'),
+                                        'q' => request('q'),
+                                    ]))">
+                        Exporter en Excel
+                    </x-admin.button>
+                @endhasanyrole
             </div>
         </div>
     </form>
@@ -63,7 +65,7 @@
             <x-admin.empty titre="Aucune inscription"
                            texte="Aucun dossier ne correspond aux filtres sélectionnés." />
         @else
-            <x-admin.table :entetes="['Code', 'Participant', 'Contact', 'Origine', 'Statut', 'Montant', 'Reçue le']">
+            <x-admin.table :entetes="['Code', 'Participant', 'Contact', 'Origine', 'Statut', 'Montant', 'Reçue le', '']">
                 @foreach ($inscriptions as $inscription)
                     <tr class="align-top hover:bg-gray-50 dark:hover:bg-white/[0.02]">
                         <td class="px-5 py-4">
@@ -104,6 +106,22 @@
                         </td>
                         <td class="px-5 py-4 text-theme-xs text-gray-400">
                             {{ $inscription->created_at->format('d/m/Y') }}<br>{{ $inscription->created_at->format('H:i') }}
+                        </td>
+                        <td class="px-5 py-4">
+                            <div class="flex flex-col items-end gap-1.5">
+                                <x-admin.button variante="discret" taille="petit"
+                                                :href="route('admin.inscriptions.show', $inscription)">
+                                    Voir
+                                </x-admin.button>
+                                @if (in_array($inscription->statut, ['pending', 'expired'], true))
+                                    @hasanyrole('super-admin|gestionnaire|comptable')
+                                        <x-admin.button taille="petit" icone="monnaie"
+                                                        :href="route('admin.inscriptions.show', $inscription).'#encaissement'">
+                                            Encaisser
+                                        </x-admin.button>
+                                    @endhasanyrole
+                                @endif
+                            </div>
                         </td>
                     </tr>
                 @endforeach

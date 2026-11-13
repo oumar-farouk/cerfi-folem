@@ -6,8 +6,12 @@ use App\Exports\InscriptionsExport;
 use App\Http\Controllers\Controller;
 use App\Models\Edition;
 use App\Models\Inscription;
+use App\Models\Paiement;
+use App\Notifications\PaiementRecu;
+use App\Services\RecuService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
@@ -35,6 +39,50 @@ class InscriptionController extends Controller
                 'ca' => (int) (clone $requete)->payees()->sum('montant'),
             ],
         ]);
+    }
+
+    /**
+     * Fiche d'une inscription : dossier, historique des paiements et des
+     * pointages, et actions autorisées selon le rôle (la vue masque les
+     * boutons, les routes protègent réellement).
+     */
+    public function show(Inscription $inscription): View
+    {
+        $inscription->load([
+            'participant', 'edition', 'region', 'profil', 'recu',
+            'paiements' => fn ($q) => $q->latest(),
+            'paiements.enregistrePar',
+            'pointages' => fn ($q) => $q->orderBy('jour'),
+            'pointages.agent',
+        ]);
+
+        return view('admin.inscriptions.show', [
+            'inscription' => $inscription,
+            'modesManuels' => array_intersect_key(Paiement::MODES, array_flip(Paiement::MODES_MANUELS)),
+        ]);
+    }
+
+    public function renvoyerRecepisse(Inscription $inscription, RecuService $recuService): RedirectResponse
+    {
+        if (! $inscription->estPayee()) {
+            return back()->with('erreur', "Seule une inscription payée dispose d'un récépissé.");
+        }
+
+        if (! $inscription->recu) {
+            $recuService->genererPour($inscription);
+        }
+
+        $inscription->participant->notify(new PaiementRecu($inscription->fresh()));
+
+        if (function_exists('activity')) {
+            activity()
+                ->performedOn($inscription)
+                ->causedBy(auth()->user())
+                ->withProperties(['code' => $inscription->code_inscription])
+                ->log('Récépissé renvoyé');
+        }
+
+        return back()->with('succes', 'Récépissé renvoyé au participant.');
     }
 
     public function export(Request $request): BinaryFileResponse

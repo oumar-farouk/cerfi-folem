@@ -140,4 +140,9 @@ class Inscription extends Model
     {
         return $query->where('statut', 'pending');
     }
+
+    public function pointages(): HasMany
+    {
+        return $this->hasMany(Pointage::class);
+    }
 }
