@@ -31,6 +31,9 @@ Route::get('/editions/{edition}', [Site\EditionController::class, 'show'])->name
 
 Route::get('/editions/{edition}/inscription', RegisterForm::class)->name('inscription.form');
 
+// Générateur d'affiche « J'y serai » (traitement 100 % navigateur, rien n'est stocké)
+Route::get('/editions/{edition}/jyserai', Site\JySeraiController::class)->name('jyserai');
+
 /*
 |--------------------------------------------------------------------------
 | Parcours « code d'inscription » : payer, retrouver son récépissé

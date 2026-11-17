@@ -21,6 +21,8 @@
 
     @include('partials.accueil.inscription', ['edition' => $editionActive])
 
+    @include('partials.accueil.jyserai', ['edition' => $editionActive])
+
     @include('partials.accueil.retrouver-dossier')
 
     @include('partials.accueil.infos', ['edition' => $editionActive])

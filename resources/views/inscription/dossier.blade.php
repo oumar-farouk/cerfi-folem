@@ -43,6 +43,7 @@
         .folem-reg .cta-download {
             background-color: var(--night) !important;
         }
+        .folem-reg .cta-jy { background-color: var(--ochre) !important; }
     </style>
 
     <div class="hero">
@@ -89,6 +90,10 @@
         @if ($inscription->estPayee())
             <a href="{{ route('recu.telecharger', $inscription->code_inscription) }}" class="cta cta-download block text-center">
                 Télécharger mon récépissé
+            </a>
+            <a href="{{ \Illuminate\Support\Facades\URL::signedRoute('jyserai', ['edition' => $inscription->edition, 'code' => $inscription->code_inscription]) }}"
+                class="cta cta-jy block text-center mt-3">
+                    Créer mon affiche « J'y serai »
             </a>
         @else
             <a href="{{ route('paiement.initier', $inscription->code_inscription) }}" class="cta cta-pay block text-center">
